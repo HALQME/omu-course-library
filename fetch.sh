@@ -4,7 +4,7 @@
 set -e
 
 # 作業ディレクトリをスクリプトの場所に設定
-cd "$(dirname "$0")"
+cd "data"
 
 echo "Starting data fetch process..."
 
@@ -12,6 +12,11 @@ echo "Starting data fetch process..."
 for YEAR in {2022..2024}; do
   for SEMESTER in 0 1; do
     echo "Fetching data for year $YEAR, semester $SEMESTER"
+
+    if [ -s "$YEAR/$SEMESTER/data.json" ]; then
+      echo "Data already fetched for year $YEAR, semester $SEMESTER. Skipping..."
+      continue
+    fi
 
     OUTPUT_DIR="${YEAR}/${SEMESTER}"
     mkdir -p "$OUTPUT_DIR"
@@ -38,4 +43,4 @@ for YEAR in {2022..2024}; do
 done
 
 echo "All data fetching completed successfully."
-chmod +x ./fetch.sh
+chmod +x .././fetch.sh

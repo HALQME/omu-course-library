@@ -30,9 +30,9 @@ jobs:
                   MAX_RETRIES=3
 
                   for i in 0 1; do
-                    if [ ! -f "$YEAR/$i/data.json" ]; then
+                    if [ ! -f "data/$YEAR/$i/data.json" ]; then
                       echo "Processing $YEAR/$i"
-                      mkdir -p "$YEAR/$i"
+                      mkdir -p "data/$YEAR/$i"
 
                       success=false
                       for attempt in $(seq 1 $MAX_RETRIES); do
@@ -42,9 +42,9 @@ jobs:
                         exit_code=$?
 
                         if [ $exit_code -eq 0 ]; then
-                          echo "$response" | jq '.data' > "$YEAR/$i/data.json"
-                          if [ -s "$YEAR/$i/data.json" ]; then
-                            echo "Successfully saved data to $YEAR/$i/data.json"
+                          echo "$response" | jq '.data' > "data/$YEAR/$i/data.json"
+                          if [ -s "data/$YEAR/$i/data.json" ]; then
+                            echo "Successfully saved data to data/$YEAR/$i/data.json"
                             success=true
                             CHANGES_MADE=true
                             break
